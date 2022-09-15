@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "grooming-management-system": {
+      "hosting": {
+        "SotiScrumGame": [
+          "grooming-management-system"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "grooming-management-system"
+  }
+}

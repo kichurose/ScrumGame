@@ -1,0 +1,29 @@
+<div class="contaienr">
+  <div class="board">
+    <div class="storyPoint" *ngIf="!isCoffee">{{ storyPoint }}</div>
+    <img *ngIf="isCoffee" src="../../assets/images/coffee-image.png" />
+  </div>
+
+  <div class="cards">
+    <ng-container *ngFor="let key of selected.keys()">
+      <ng-container [ngSwitch]="key">
+        <div
+          *ngSwitchCase="'cup'"
+          [class.isChecked]="getState('cup')"
+          class="card"
+          (click)="toggleSelection('cup')"
+        >
+          <img src="../../assets/images/coffee-image.png" />
+        </div>
+        <div
+          *ngSwitchDefault
+          [class.isChecked]="getState(key)"
+          class="card"
+          (click)="toggleSelection(key)"
+        >
+          <div class="card-number">{{ key }}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
