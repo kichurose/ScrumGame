@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 const CUP: string = 'cup';
 
@@ -6,6 +9,8 @@ const CUP: string = 'cup';
   selector: 'app-gamble-table',
   templateUrl: './gamble-table.component.html',
   styleUrls: ['./gamble-table.component.scss'],
+  standalone: true,
+  imports: [CommonModule],
 })
 export class GambleTableComponent {
   public selected = new Map<any, boolean>([
@@ -20,6 +25,7 @@ export class GambleTableComponent {
   ]);
   public storyPoint: number = 0;
   public isCoffee: boolean = true;
+  constructor(private authService: AuthService, private router: Router) {}
 
   toggleSelection(value: any) {
     var state = this.selected.get(value);

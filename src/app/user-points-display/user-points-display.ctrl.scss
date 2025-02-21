@@ -1,0 +1,19 @@
+:host {
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 40px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 4px;
+    cursor: pointer;
+  }
+}
