@@ -1,0 +1,21 @@
+<div class="container">
+<button class="btn btn-primary" (click)="flipCard()">
+     {{ isFlipped ? 'Hide Points' : 'Show Points' }}
+</button>
+
+    <table class="table table-striped table-hover">
+        <td>User</td>
+        <td>Points</td>
+        <tr *ngFor="let user of users">
+            <td>{{user.name}}</td>
+            <td>
+                <div class="card">
+                    <span *ngIf="isFlipped">
+                        {{user.points}}
+                    </span>
+                  
+                </div>
+               </td>
+    </table>
+</div>
+
