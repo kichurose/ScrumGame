@@ -6,11 +6,10 @@ import { CommonModule } from '@angular/common';
 const CUP: string = 'cup';
 
 @Component({
-  selector: 'app-gamble-table',
-  templateUrl: './gamble-table.component.html',
-  styleUrls: ['./gamble-table.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
+    selector: 'app-gamble-table',
+    templateUrl: './gamble-table.component.html',
+    styleUrls: ['./gamble-table.component.scss'],
+    imports: [CommonModule]
 })
 export class GambleTableComponent {
   public selected = new Map<any, boolean>([
