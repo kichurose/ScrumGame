@@ -5,11 +5,10 @@ import { UserPointsDisplayComponent } from '../user-points-display/user-points-d
 import { GambleTableComponent } from '../gamble-table/gamble-table.component';
 
 @Component({
-  selector: 'app-home-screen',
-  templateUrl: './home-screen.component.html',
-  styleUrls: ['./home-screen.component.scss'],
-  imports: [UserPointsDisplayComponent, GambleTableComponent],
-  standalone: true,
+    selector: 'app-home-screen',
+    templateUrl: './home-screen.component.html',
+    styleUrls: ['./home-screen.component.scss'],
+    imports: [UserPointsDisplayComponent, GambleTableComponent]
 })
 export class HomeScreenComponent implements OnInit {
 

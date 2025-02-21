@@ -10,12 +10,11 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'login-screen',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  providers: [AuthService],
+    selector: 'login-screen',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [CommonModule, ReactiveFormsModule],
+    providers: [AuthService]
 })
 export class LoginComponent implements OnInit {
   private _validUsers: Map<string, string> = new Map<string, string>([

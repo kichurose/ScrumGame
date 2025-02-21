@@ -1,7 +1,7 @@
 <div class="contaienr">
   <div class="board">
     <div class="storyPoint" *ngIf="!isCoffee">{{ storyPoint }}</div>
-    <img *ngIf="isCoffee" src="../../assets/images/coffee-image.png" />
+    <img *ngIf="isCoffee" src="../../assets/images/coffee.png" />
   </div>
 
   <div class="cards">
@@ -13,7 +13,7 @@
           class="card"
           (click)="toggleSelection('cup')"
         >
-          <img src="../../assets/images/coffee-image.png" />
+          <img src="../../assets/images/coffee.png" />
         </div>
         <div
           *ngSwitchDefault

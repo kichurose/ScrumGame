@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "SotiScrumGame",
-    "public": "dist/soti-scrum-game",
+    "public": "dist/scrum-game",
     "ignore": [
       "**/.*"
     ],

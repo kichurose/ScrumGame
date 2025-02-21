@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'user-points-display',
-  templateUrl: './user-points-display.ctrl.html',
-  styleUrls: ['./user-points-display.ctrl.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-  ]
+    selector: 'user-points-display',
+    templateUrl: './user-points-display.ctrl.html',
+    styleUrls: ['./user-points-display.ctrl.scss'],
+    imports: [
+        CommonModule,
+    ]
 })
 export class UserPointsDisplayComponent implements OnInit {
     public isFlipped = false;
