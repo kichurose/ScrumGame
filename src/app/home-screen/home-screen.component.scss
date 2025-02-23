@@ -5,4 +5,9 @@
     .gamble-table{
         flex-grow: 1;
     }
+    .header{
+        display: flex;
+        margin: 5px 10px;
+        justify-content: flex-end;
+    }
 }
