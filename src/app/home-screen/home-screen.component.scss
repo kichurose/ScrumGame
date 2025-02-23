@@ -1,13 +1,18 @@
 :host {
-    .content {
-        display: flex;
-    }
-    .gamble-table{
-        flex-grow: 1;
-    }
-    .header{
-        display: flex;
-        margin: 5px 10px;
-        justify-content: flex-end;
-    }
+  .content {
+    display: flex;
+  }
+  .user-points {
+    display: flex;
+    align-items: center;
+    width: 30%;
+  }
+  .gamble-table {
+    flex-grow: 1;
+  }
+  .header {
+    display: flex;
+    margin: 5px 10px;
+    justify-content: flex-end;
+  }
 }
