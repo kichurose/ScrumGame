@@ -5,7 +5,16 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  //private _isLoggedIn$: Subject<boolean> = new Subject<boolean>();
+
+  private _username$: Subject<string> = new Subject<string>();
+
+  public setUsername(value: string) {
+    this._username$.next(value);
+  }
+
+  public get getUsername(): Observable<string> {
+    return this._username$.asObservable();
+  }
 
   isLoggedIn(): boolean {
     return localStorage.getItem('isLoggedIn') === 'true';
