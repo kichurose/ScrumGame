@@ -13,16 +13,15 @@ import { AuthService } from '../services/auth.service';
     selector: 'login-screen',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule],
-    providers: [AuthService]
+    imports: [CommonModule, ReactiveFormsModule]
 })
 export class LoginComponent implements OnInit {
   private _validUsers: Map<string, string> = new Map<string, string>([
-    ['shaheen', 'Welcome1234'],
-    ['christina', 'Welcome1234'],
-    ['sherlac', 'Welcome1234'],
-    ['suhail', 'Welcome1234'],
-    ['kriti', 'Welcome1234'],
+    ['shaheen', '1234'],
+    ['christina', '1234'],
+    ['sherlac', '1234'],
+    ['suhail', '1234'],
+    ['kriti', '1234'],
   ]);
   public loginForm!: FormGroup;
   constructor(private router: Router,
@@ -40,7 +39,16 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.loginForm.value;
     if (username && password && this._validUsers.get(username) === password) {
       this.authService.isLogin();
-      this.router.navigate(['/home']);
+     
+    
+      this.router.navigate(['/home'], { queryParams: { username: username } });
+
+      // setTimeout(() => {
+      //   this.authService.setUsername(username);
+      // });
+     
+     
+      
     }
   }
 }
