@@ -9,17 +9,14 @@
     <tr *ngFor="let user of users">
       <td>{{user.name}}</td>
       <td>
-        <div class="card">
-          @if (isFlipped) {
+        <div class="card" [ngClass]="{'flipped': isFlipped}">
+          <div class="flip-card-front">
+            <img src="../../assets/images/scrum.png" alt="Scrum Poker" />
+          </div>
+
           <div class="flip-card-back">
             <span>{{ user.points }}</span>
           </div>
-          } @else {
-
-          <div class="flip-card-front">
-            <span>Flip</span>
-          </div>
-          }
         </div>
       </td>
     </tr>

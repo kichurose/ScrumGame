@@ -2,7 +2,7 @@
   "targets": {
     "grooming-management-system": {
       "hosting": {
-        "SotiScrumGame": [
+        "ScrumGame": [
           "grooming-management-system"
         ]
       }
