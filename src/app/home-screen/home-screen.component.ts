@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserPointsDisplayComponent } from '../user-points-display/user-points-display.ctrl';
@@ -13,9 +18,13 @@ import { Subscription } from 'rxjs';
   imports: [UserPointsDisplayComponent, GambleTableComponent],
 })
 export class HomeScreenComponent implements OnInit {
-
   public username: string = '';
-  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef, private route: ActivatedRoute) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
+  ) {}
   private usernameSubscription: Subscription | null = null;
 
   ngOnInit(): void {
@@ -32,7 +41,7 @@ export class HomeScreenComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.usernameSubscription) {
-      this.usernameSubscription.unsubscribe();  // Unsubscribe to prevent memory leaks
+      this.usernameSubscription.unsubscribe(); // Unsubscribe to prevent memory leaks
     }
   }
   logOut() {

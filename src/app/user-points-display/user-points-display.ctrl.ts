@@ -2,30 +2,34 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'user-points-display',
-    templateUrl: './user-points-display.ctrl.html',
-    styleUrls: ['./user-points-display.ctrl.scss'],
-    imports: [
-        CommonModule,
-    ]
+  selector: 'user-points-display',
+  templateUrl: './user-points-display.ctrl.html',
+  styleUrls: ['./user-points-display.ctrl.scss'],
+  imports: [CommonModule],
 })
 export class UserPointsDisplayComponent implements OnInit {
-    public isFlipped = false;
-    public users = [
-        {name: 'Shaheen', points: 5},
-        {name: 'Christina', points: 8},
-        {name: 'Sherlac', points: 3},
-        {name: 'Kriti', points: 8}
-    ];
+  public isFlipped = false;
+  public isDeleted = false;
+  public users = [
+    { name: 'Shaheen', points: 5 },
+    { name: 'Christina', points: 8 },
+    { name: 'Sherlac', points: 3 },
+    { name: 'Kriti', points: 8 },
+  ];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   flipCard() {
     this.isFlipped = !this.isFlipped;
-    
   }
 
+  onDeleteEstimates() {
+    this.users.forEach((user) => {
+      user.points = 0;
+    });
+    this.isDeleted = true;
+    console.log('Delete Estimates');
+  }
 }

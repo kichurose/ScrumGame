@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
-    selector: 'login-screen',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    imports: [CommonModule, ReactiveFormsModule]
+  selector: 'login-screen',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit {
   private _validUsers: Map<string, string> = new Map<string, string>([
@@ -24,9 +24,7 @@ export class LoginComponent implements OnInit {
     ['kriti', '1234'],
   ]);
   public loginForm!: FormGroup;
-  constructor(private router: Router,
-    private authService: AuthService
-  ) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -39,16 +37,12 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.loginForm.value;
     if (username && password && this._validUsers.get(username) === password) {
       this.authService.isLogin();
-     
-    
+
       this.router.navigate(['/home'], { queryParams: { username: username } });
 
       // setTimeout(() => {
       //   this.authService.setUsername(username);
       // });
-     
-     
-      
     }
   }
 }
