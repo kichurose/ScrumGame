@@ -5,15 +5,19 @@
   .user-points {
     display: flex;
     align-items: center;
-    width: 30%;
+    min-width: 200px;
   }
   .gamble-table {
     flex-grow: 1;
   }
   .header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #363a59; // delft blue
     width: 100%;
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     justify-content: flex-end;
     height: 60px;
     align-items: center;
@@ -23,6 +27,11 @@
     span {
       margin-right: 10px;
       margin-left: 10px;
+      color: white;
+    }
+    i{
+      color: white;
+      font-size: 20px;
     }
 
     button {
@@ -31,7 +40,9 @@
       height: 30px;
       border: none;
       font-size: 14px;
-      //border-radius: 30px;
+      border-radius: 20px;
+      color: white;
+      background-color: #bfc2d9;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }

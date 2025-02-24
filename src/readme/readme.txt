@@ -20,3 +20,8 @@ fontawesome
 <i class="fa-brands fa-github"></i>
 5. version in package.json
 "@fortawesome/fontawesome-free": "^6.7.2",
+
+
+color pallette
+https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
+https://coolors.co/92dce5-b38099-f8f7f9-f7ec59-0a014f
