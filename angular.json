@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SotiScrumGame": {
+    "ScrumGame": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SotiScrumGame:build:production"
+              "buildTarget": "ScrumGame:build:production"
             },
             "development": {
-              "buildTarget": "SotiScrumGame:build:development"
+              "buildTarget": "ScrumGame:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "SotiScrumGame:build"
+            "buildTarget": "ScrumGame:build"
           }
         },
         "test": {
@@ -108,7 +108,7 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "SotiScrumGame:build:production",
+            "browserTarget": "ScrumGame:build:production",
             "firebaseProject": "grooming-management-system",
             "firebaseHostingSite": "grooming-management-system"
           }
