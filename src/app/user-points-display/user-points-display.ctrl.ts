@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UtilityService } from '../shared/utility.service';
 
 @Component({
   selector: 'user-points-display',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
   imports: [CommonModule],
 })
 export class UserPointsDisplayComponent implements OnInit {
+  @Input() username: string = '';
   public isFlipped = false;
   public isDeleted = false;
   public users = [
@@ -17,9 +19,19 @@ export class UserPointsDisplayComponent implements OnInit {
     { name: 'Kriti', points: 8 },
   ];
 
-  constructor() {}
+  constructor(private utilityService: UtilityService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.username);
+    this.utilityService.getStoryPoint().subscribe((storyPoint) => {
+      this.users.find((user) => {
+        if (user.name.toLowerCase() === this.username.toLowerCase()) {
+          user.points = storyPoint;
+        }
+      });
+      console.log('Story Point:', storyPoint);
+    });
+  }
 
   flipCard() {
     this.isFlipped = !this.isFlipped;
