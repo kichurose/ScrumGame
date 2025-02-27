@@ -25,3 +25,15 @@ fontawesome
 color pallette
 https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
 https://coolors.co/92dce5-b38099-f8f7f9-f7ec59-0a014f
+
+
+
+
+APIs needed
+
+1. Room Creation
+2. get room details &  all users in a room using room id
+3. User Login
+4. User Logout
+5. Signal R
+

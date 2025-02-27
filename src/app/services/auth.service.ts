@@ -5,8 +5,13 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  private isRoomCreated: boolean = false;
 
   private _username$: Subject<string> = new Subject<string>();
+
+  public roomCreated() {
+    this.isRoomCreated = true;
+  }
 
   public setUsername(value: string) {
     this._username$.next(value);
@@ -17,7 +22,7 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return localStorage.getItem('isLoggedIn') === 'true';
+    return localStorage.getItem('isLoggedIn') === 'true' || this.isRoomCreated;
   }
 
   public isLogin() {

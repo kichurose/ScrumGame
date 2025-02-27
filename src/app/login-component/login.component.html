@@ -1,5 +1,9 @@
 <div>
-  <h1>Login</h1>
+  <div class="header">
+    <h1>Login</h1>
+    <button (click)="createRoom()">Create Room</button>
+  </div>
+  
   <form [formGroup]="loginForm">
     <p>{{ loginForm.value | json }}</p>
     <div class="form-group">

@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 // import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,11 +18,12 @@ import { AuthService } from './services/auth.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    
     // provideFirebaseApp(() => initializeApp(environment.firebase)),
     // provideFirestore(() => getFirestore()),
     //CommonModule
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

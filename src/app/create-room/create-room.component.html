@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="header">Create Your Room</div>
+  <div class="content">
+    <p>
+      Create a temporary account and instantly set up your room. Simply enter a
+      room name below to get started—no sign-up required! This temporary account
+      allows you to access and manage your room seamlessly. Once you're ready,
+      click 'Create Room' to begin.
+    </p>
+    <div>
+      <input #roomInput type="text" placeholder="Room Name" />
+    </div>
+  </div>
+
+  <div class="footer">
+    <button (click)="onCancelClick()">Cancel</button>
+    <button (click)="updateRoomName(roomInput.value)">Create Room</button>
+  </div>
+</div>

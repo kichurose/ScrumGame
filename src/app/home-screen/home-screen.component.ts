@@ -2,20 +2,25 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Injector,
   OnInit,
 } from '@angular/core';
+import { Overlay, OverlayModule, OverlayRef } from '@angular/cdk/overlay';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserPointsDisplayComponent } from '../user-points-display/user-points-display.ctrl';
 import { GambleTableComponent } from '../gamble-table/gamble-table.component';
 import { Subscription } from 'rxjs';
+import { CreateRoomComponent } from '../create-room/create-room.component';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-home-screen',
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UserPointsDisplayComponent, GambleTableComponent],
+  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule],
+  providers: [Overlay]
 })
 export class HomeScreenComponent implements OnInit {
   public username: string = '';
@@ -23,8 +28,11 @@ export class HomeScreenComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private overlay: Overlay,
+    private injector: Injector
+  ) {
+  }
   private usernameSubscription: Subscription | null = null;
 
   ngOnInit(): void {
@@ -44,6 +52,7 @@ export class HomeScreenComponent implements OnInit {
       this.usernameSubscription.unsubscribe(); // Unsubscribe to prevent memory leaks
     }
   }
+  
   logOut() {
     this.authService.isLogout();
     this.router.navigate(['/login']);
