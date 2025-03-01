@@ -1,9 +1,8 @@
-import { Overlay, OverlayRef } from '@angular/cdk/overlay';
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { RoomService } from '../services/room.service';
-import { RoomInfo } from '../models/RoomInfo';
 
 @Component({
   selector: 'app-create-room',
@@ -23,17 +22,15 @@ export class CreateRoomComponent {
 
   updateRoomName(value: string) {
     this.authService.isLogin();
-    
+
     this.roomService.createRoom(value).subscribe((data) => {
-       this.roomId = data.roomId;
-       this.closeOverlay.emit();
-    this.router.navigate([`/home/${this.roomId}/room`]);
-    this.overlayRef.dispose();
-      
+      this.roomId = data.roomId;
+      this.closeOverlay.emit();
+      console.log('Room ID in CreateRoomComponent:', this.roomId);
+      this.router.navigate([`/home/${this.roomId}/room`]);
+      this.overlayRef.dispose();
       //this.roomService.setRoomId(data.roomId);
     });
-
-    
   }
 
   onCancelClick() {

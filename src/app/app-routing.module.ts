@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'table', component: GambleTableComponent, canActivate: [AuthGuardService]},
   {path: 'userlist', component: UserPointsDisplayComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
-  { path: 'home/:roomid/room', component: HomeScreenComponent, canActivate: [AuthGuardService] }
+  { path: 'home/:roomid/room', component: HomeScreenComponent}
 ];
 
 @NgModule({

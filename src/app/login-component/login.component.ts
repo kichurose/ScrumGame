@@ -29,15 +29,14 @@ export class LoginComponent implements OnInit {
     ['kriti', '1234'],
   ]);
   public loginForm!: FormGroup;
-   constructor(
-      private authService: AuthService,
-      private router: Router,
-      private cdr: ChangeDetectorRef,
-      private route: ActivatedRoute,
-      private overlay: Overlay,
-      private injector: Injector
-    ) {
-    }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute,
+    private overlay: Overlay,
+    private injector: Injector
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -64,17 +63,18 @@ export class LoginComponent implements OnInit {
       hasBackdrop: true,
       //backdropClass: 'cdk-overlay-backdrop',
       panelClass: 'custom-overlay-panel',
-      positionStrategy: this.overlay.position()
+      positionStrategy: this.overlay
+        .position()
         .global()
         .centerHorizontally()
-        .centerVertically()
+        .centerVertically(),
     });
 
     const injector = Injector.create({
       providers: [{ provide: OverlayRef, useValue: this.overlayRef }],
-      parent: this.injector
+      parent: this.injector,
     });
-    
+
     const portal = new ComponentPortal(CreateRoomComponent, null, injector);
     this.overlayRef.attach(portal);
 

@@ -16,9 +16,10 @@ export class RoomService {
   createRoom(roomName: string): Observable<RoomInfo> {
     const body: RoomRequest = { roomName };
     return this.http
-      .post<{ result: { roomName: string; roomId: string } }>(this.apiUrl, body)
+      .post<{ result: { roomName: string; roomId: string }, jwtToken: string }>(this.apiUrl, body)
       .pipe(
         map((response) => {
+          localStorage.setItem('token', response.jwtToken);
           const result = response.result;
           return new RoomInfo(result.roomName, result.roomId);
         })

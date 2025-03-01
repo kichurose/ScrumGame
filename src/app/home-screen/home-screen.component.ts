@@ -11,23 +11,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UserPointsDisplayComponent } from '../user-points-display/user-points-display.ctrl';
 import { GambleTableComponent } from '../gamble-table/gamble-table.component';
 import { Subscription } from 'rxjs';
-import { CreateRoomComponent } from '../create-room/create-room.component';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { RoomService } from '../services/room.service';
 import { ShareRoomComponent } from '../share-room/share-room.component';
+import { AuthenticationService } from '../services/authentication.service';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-home-screen',
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule],
+  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule, FormsModule, NgIf],
   providers: [Overlay],
 })
 export class HomeScreenComponent implements OnInit {
   public username: string = '';
+  public showDisplayName: boolean = false;
+  public isAdmin: boolean = false;
+  public displayName: string = '';
   public roomId: string = '';
   private overlayRef: OverlayRef;
+  private token: string = '';
 
   constructor(
     private authService: AuthService,
@@ -36,7 +41,7 @@ export class HomeScreenComponent implements OnInit {
     private route: ActivatedRoute,
     private overlay: Overlay,
     private injector: Injector,
-    private roomService: RoomService
+    private authenticationService: AuthenticationService
   ) {}
 
   private usernameSubscription: Subscription | null = null;
@@ -52,11 +57,33 @@ export class HomeScreenComponent implements OnInit {
     //     }
     //   }
     // );
-
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.roomId = params['roomid']; // Get room ID from the route
       console.log('Room ID in HomeComponent:', this.roomId);
     });
+
+    this.token = localStorage.getItem('token');
+    if (this.token) {
+   // Retrieve JWT token from storage
+     // const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
+      this.authenticationService
+        .validateUser(this.roomId)
+        .subscribe((result) => {
+          console.log('result', result);
+          if(result.role === 'Admin'){
+            this.isAdmin = true;
+          }
+          if(!this.isAdmin){
+            this.showDisplayName = true;
+          }
+        });
+    }
+    else{
+      this.showDisplayName = true;
+    }
+   
+    
+   
   }
 
   ngOnDestroy(): void {
@@ -75,10 +102,11 @@ export class HomeScreenComponent implements OnInit {
       hasBackdrop: true,
       //backdropClass: 'cdk-overlay-backdrop',
       panelClass: 'share-room-overlay-panel',
-      positionStrategy: this.overlay.position()
+      positionStrategy: this.overlay
+        .position()
         .global()
         .centerHorizontally()
-        .centerVertically()
+        .centerVertically(),
     });
 
     // const injector = Injector.create({

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-share-room',
@@ -7,10 +7,12 @@ import { Component } from '@angular/core';
 })
 export class ShareRoomComponent {
   public roomLink: string = '';
+  @Input()
+  public roomId: string = '';
   constructor() {}
 
   ngOnInit(): void {
-    this.roomLink = 'https://scrumgame/room/1234';
+    this.roomLink = `http://localhost:4200/home/${this.roomId}/room`;
   }
 
   onCopyRoomLink() {
