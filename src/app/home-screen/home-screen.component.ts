@@ -16,13 +16,20 @@ import { ShareRoomComponent } from '../share-room/share-room.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home-screen',
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule, FormsModule, NgIf],
+  imports: [
+    UserPointsDisplayComponent,
+    GambleTableComponent,
+    OverlayModule,
+    FormsModule,
+    NgIf,
+  ],
   providers: [Overlay],
 })
 export class HomeScreenComponent implements OnInit {
@@ -41,7 +48,8 @@ export class HomeScreenComponent implements OnInit {
     private route: ActivatedRoute,
     private overlay: Overlay,
     private injector: Injector,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private userService: UserService
   ) {}
 
   private usernameSubscription: Subscription | null = null;
@@ -64,31 +72,32 @@ export class HomeScreenComponent implements OnInit {
 
     this.token = localStorage.getItem('token');
     if (this.token) {
-   // Retrieve JWT token from storage
-     // const headers = new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
       this.authenticationService
         .validateUser(this.roomId)
         .subscribe((result) => {
           console.log('result', result);
-          if(result.role === 'Admin'){
+          if (result.role === 'Admin') {
             this.isAdmin = true;
           }
-          if(!this.isAdmin){
+          if (!this.isAdmin) {
             this.showDisplayName = true;
           }
         });
-    }
-    else{
+    } else {
+      //save the username in the database
+
       this.showDisplayName = true;
     }
-   
-    
-   
+  }
+
+  confirmDisplayName() {
+    this.username = this.displayName;
+    this.showDisplayName = false;
   }
 
   ngOnDestroy(): void {
     if (this.usernameSubscription) {
-      this.usernameSubscription.unsubscribe(); // Unsubscribe to prevent memory leaks
+      this.usernameSubscription.unsubscribe();
     }
   }
 
@@ -100,7 +109,6 @@ export class HomeScreenComponent implements OnInit {
   onShareRoom() {
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
-      //backdropClass: 'cdk-overlay-backdrop',
       panelClass: 'share-room-overlay-panel',
       positionStrategy: this.overlay
         .position()
@@ -109,14 +117,11 @@ export class HomeScreenComponent implements OnInit {
         .centerVertically(),
     });
 
-    // const injector = Injector.create({
-    //   providers: [{ provide: OverlayRef, useValue: this.overlayRef }],
-    //   parent: this.injector
-    // });
-
-    const portal = new ComponentPortal(ShareRoomComponent, null);
+    const injector = Injector.create({
+      providers: [{ provide: 'roomId', useValue: this.roomId }]
+    });
+    const portal = new ComponentPortal(ShareRoomComponent, null, injector);
     this.overlayRef.attach(portal);
-
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
   }
 }

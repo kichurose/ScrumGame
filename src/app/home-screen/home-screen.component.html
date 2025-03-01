@@ -23,5 +23,7 @@
   </div>
   <div class="content" *ngIf="showDisplayName">
     <input type="text" placeholder="Display Name" [(ngModel)]="displayName" />
+    <button (click)="confirmDisplayName()">Confirm</button>
+
   </div>
 </div>

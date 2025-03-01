@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 
 @Component({
   selector: 'app-share-room',
@@ -7,9 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class ShareRoomComponent {
   public roomLink: string = '';
-  @Input()
-  public roomId: string = '';
-  constructor() {}
+  
+  constructor(@Inject('roomId') public roomId: string) {}
 
   ngOnInit(): void {
     this.roomLink = `http://localhost:4200/home/${this.roomId}/room`;
