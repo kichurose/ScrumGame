@@ -1,0 +1,33 @@
+:host {
+  .header {
+    font-size: 20px;
+  }
+  .content {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgb(128, 128, 128);
+    .share-room-link {
+      display: flex;
+      align-items: center;
+      span {
+        margin-right: 10px;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      i {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+::ng-deep .share-room-overlay-panel {
+  width: 400px;
+  //max-width: 90vw;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+}

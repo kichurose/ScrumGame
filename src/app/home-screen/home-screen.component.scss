@@ -35,7 +35,13 @@
       font-size: 20px;
     }
 
+    .room-container {
+      flex-grow: 1;
+      text-align: center;
+    }
+
     button {
+
       margin-right: 10px;
       width: 80px;
       height: 30px;

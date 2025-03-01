@@ -3,6 +3,7 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { RoomService } from '../services/room.service';
+import { RoomInfo } from '../models/RoomInfo';
 
 @Component({
   selector: 'app-create-room',
@@ -12,7 +13,7 @@ import { RoomService } from '../services/room.service';
 })
 export class CreateRoomComponent {
   @Output() closeOverlay = new EventEmitter<void>();
-  roomName = '';
+  public roomId: string = '';
   constructor(
     @Inject(OverlayRef) private overlayRef: OverlayRef,
     private router: Router,
@@ -21,17 +22,18 @@ export class CreateRoomComponent {
   ) {}
 
   updateRoomName(value: string) {
-    //console.log(value);
     this.authService.isLogin();
-    this.roomName = value;
+    
     this.roomService.createRoom(value).subscribe((data) => {
-      let abc = data;
-      console.log('ARoom  Info ', abc);
+       this.roomId = data.roomId;
+       this.closeOverlay.emit();
+    this.router.navigate([`/home/${this.roomId}/room`]);
+    this.overlayRef.dispose();
+      
+      //this.roomService.setRoomId(data.roomId);
     });
 
-    this.closeOverlay.emit();
-    this.router.navigate(['./home']);
-    this.overlayRef.dispose();
+    
   }
 
   onCancelClick() {

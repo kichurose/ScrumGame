@@ -1,13 +1,21 @@
 <div class="container">
   <div class="header">
-    <i class="fa-solid fa-circle-user"></i>
-    <span>{{ username }}</span>
-    <!-- <button (click)="createRoom()">Create Room</button> -->
+    <div class="room-container">
+      @if(roomId != null) {
+
+      <span>{{ roomId }}</span>
+      <i class="fa-solid fa-share-from-square" (click)="onShareRoom()"></i>
+      } @else {
+      <i class="fa-solid fa-circle-user"></i>
+      <span>{{ username }}</span>
+      }
+    </div>
+
     <button (click)="logOut()">Log Out</button>
   </div>
   <div class="content">
     <div class="user-points">
-      <user-points-display  [username]="username"></user-points-display>
+      <user-points-display [username]="username"></user-points-display>
     </div>
     <div class="gamble-table">
       <app-gamble-table></app-gamble-table>

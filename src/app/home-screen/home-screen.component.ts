@@ -13,6 +13,8 @@ import { GambleTableComponent } from '../gamble-table/gamble-table.component';
 import { Subscription } from 'rxjs';
 import { CreateRoomComponent } from '../create-room/create-room.component';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { RoomService } from '../services/room.service';
+import { ShareRoomComponent } from '../share-room/share-room.component';
 
 @Component({
   selector: 'app-home-screen',
@@ -20,31 +22,41 @@ import { ComponentPortal } from '@angular/cdk/portal';
   styleUrls: ['./home-screen.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule],
-  providers: [Overlay]
+  providers: [Overlay],
 })
 export class HomeScreenComponent implements OnInit {
   public username: string = '';
+  public roomId: string = '';
+  private overlayRef: OverlayRef;
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
     private overlay: Overlay,
-    private injector: Injector
-  ) {
-  }
+    private injector: Injector,
+    private roomService: RoomService
+  ) {}
+
   private usernameSubscription: Subscription | null = null;
 
   ngOnInit(): void {
     this.username = this.route.snapshot.queryParams['username'];
-    console.log('Username passed from login:', this.username);
-    // this.usernameSubscription = this.authService.getUsername.subscribe(username => {
-    //   console.log('Username received in HomeComponent:', username);
-    //   if (username) {
-    //    this.username = username;
-    //    this.cdr.detectChanges();
+    // this.usernameSubscription = this.roomService.getRoomId.subscribe(
+    //   (roomId) => {
+    //     console.log(' Roomid in HomeComponent:', roomId);
+    //     if (roomId) {
+    //       this.roomId = roomId;
+    //       this.cdr.detectChanges();
+    //     }
     //   }
-    // });
+    // );
+
+    this.route.params.subscribe(params => {
+      this.roomId = params['roomid']; // Get room ID from the route
+      console.log('Room ID in HomeComponent:', this.roomId);
+    });
   }
 
   ngOnDestroy(): void {
@@ -52,9 +64,31 @@ export class HomeScreenComponent implements OnInit {
       this.usernameSubscription.unsubscribe(); // Unsubscribe to prevent memory leaks
     }
   }
-  
+
   logOut() {
     this.authService.isLogout();
     this.router.navigate(['/login']);
+  }
+
+  onShareRoom() {
+    this.overlayRef = this.overlay.create({
+      hasBackdrop: true,
+      //backdropClass: 'cdk-overlay-backdrop',
+      panelClass: 'share-room-overlay-panel',
+      positionStrategy: this.overlay.position()
+        .global()
+        .centerHorizontally()
+        .centerVertically()
+    });
+
+    // const injector = Injector.create({
+    //   providers: [{ provide: OverlayRef, useValue: this.overlayRef }],
+    //   parent: this.injector
+    // });
+
+    const portal = new ComponentPortal(ShareRoomComponent, null);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
   }
 }
