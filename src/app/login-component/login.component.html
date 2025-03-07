@@ -1,31 +1,43 @@
 <div>
   <div class="header">
-    <h1>Login</h1>
+    <button (click)="userLogin()">Login</button>
     <button (click)="createRoom()">Create Room</button>
   </div>
-  
-  <form [formGroup]="loginForm">
-    <p>{{ loginForm.value | json }}</p>
-    <div class="form-group">
-      <label for="username">Username</label>
+
+  <div class="content">
+    <div class="join-room-container">
+      <h2>Join an Existing Room</h2>
+
+      <!-- Content Text -->
+      <p class="content-text">
+        Easily join an existing room and start collaborating right away. <br />
+        Just enter the <strong>Room ID</strong> and your
+        <strong>Display Name</strong> to connect with your team—no account
+        creation needed!<br />
+        Once you're in, you can participate in the session, vote on tasks, and
+        contribute to the discussion.
+        <br />
+        Simply enter the room details below and click 'Join Room' to get
+        started. <br />
+      </p>
+
+      <label for="roomId">Room ID </label><br />
       <input
         type="text"
-        id="username"
-        formControlName="username"
-        placeholder="Username"
-      />
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Password"
-      />
-    </div>
-  </form>
-  <button (click)="onLogIn()">LOGIN</button>
-</div>
+        id="roomId"
+        placeholder="Room ID"
+        [(ngModel)]="roomId"
+      /><br />
 
-<label for="">ROOM ID<input type="text" /></label>
+      <label for="displayName">Display Name </label><br />
+      <input
+        type="text"
+        id="displayName"
+        placeholder="Display Name"
+        [(ngModel)]="displayName"
+      /><br />
+
+      <button (click)="joinRoom()">Join Room</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<form [formGroup]="loginForm">
+    <p>{{ loginForm.value | json }}</p>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        placeholder="Username"
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        placeholder="Password"
+      />
+    </div>
+  </form>
+  <button (click)="onLogIn()">LOGIN</button>

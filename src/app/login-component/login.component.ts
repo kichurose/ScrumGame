@@ -4,6 +4,7 @@ import {
   Form,
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,23 +12,19 @@ import { AuthService } from '../services/auth.service';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CreateRoomComponent } from '../create-room/create-room.component';
+import { UserLoginComponent } from '../user-login/user-login.ctrl';
 
 @Component({
   selector: 'login-screen',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [FormsModule],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  public roomId: string = '';
+  public displayName: string = '';
   private overlayRef: OverlayRef;
-
-  private _validUsers: Map<string, string> = new Map<string, string>([
-    ['shaheen', '1234'],
-    ['christina', '1234'],
-    ['sherlac', '1234'],
-    ['suhail', '1234'],
-    ['kriti', '1234'],
-  ]);
+  public username: string = '';
   public loginForm!: FormGroup;
   constructor(
     private authService: AuthService,
@@ -38,26 +35,13 @@ export class LoginComponent implements OnInit {
     private injector: Injector
   ) {}
 
-  ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl(''),
-    });
+  joinRoom() {
+    // need to update this logic TODO
+    this.authService.isLogin();
+
+    //this.authService.joinRoom(this.roomId, this.displayName);
+    this.router.navigate(['/home']);
   }
-
-  onLogIn() {
-    const { username, password } = this.loginForm.value;
-    if (username && password && this._validUsers.get(username) === password) {
-      this.authService.isLogin();
-
-      this.router.navigate(['/home'], { queryParams: { username: username } });
-
-      // setTimeout(() => {
-      //   this.authService.setUsername(username);
-      // });
-    }
-  }
-
   createRoom(): void {
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,
@@ -76,6 +60,29 @@ export class LoginComponent implements OnInit {
     });
 
     const portal = new ComponentPortal(CreateRoomComponent, null, injector);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+  }
+
+  userLogin(): void {
+    this.overlayRef = this.overlay.create({
+      hasBackdrop: true,
+      //backdropClass: 'cdk-overlay-backdrop',
+      panelClass: 'custom-overlay-panel',
+      positionStrategy: this.overlay
+        .position()
+        .global()
+        .centerHorizontally()
+        .centerVertically(),
+    });
+
+    const injector = Injector.create({
+      providers: [{ provide: OverlayRef, useValue: this.overlayRef }],
+      parent: this.injector,
+    });
+
+    const portal = new ComponentPortal(UserLoginComponent, null, injector);
     this.overlayRef.attach(portal);
 
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());

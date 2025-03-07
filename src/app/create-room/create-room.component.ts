@@ -11,7 +11,6 @@ import { RoomService } from '../services/room.service';
   imports: [],
 })
 export class CreateRoomComponent {
-  @Output() closeOverlay = new EventEmitter<void>();
   public roomId: string = '';
   constructor(
     @Inject(OverlayRef) private overlayRef: OverlayRef,
@@ -25,7 +24,6 @@ export class CreateRoomComponent {
 
     this.roomService.createRoom(value).subscribe((data) => {
       this.roomId = data.roomId;
-      this.closeOverlay.emit();
       console.log('Room ID in CreateRoomComponent:', this.roomId);
       this.router.navigate([`/home/${this.roomId}/room`]);
       this.overlayRef.dispose();
@@ -34,7 +32,7 @@ export class CreateRoomComponent {
   }
 
   onCancelClick() {
-    this.closeOverlay.emit();
+    //this.closeOverlay.emit();
     this.overlayRef.dispose();
   }
 }

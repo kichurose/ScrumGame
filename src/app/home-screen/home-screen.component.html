@@ -13,7 +13,7 @@
 
     <button (click)="logOut()">Log Out</button>
   </div>
-  <div class="content" *ngIf="!showDisplayName">
+  <div class="content">
     <div class="user-points">
       <user-points-display [username]="username"></user-points-display>
     </div>
@@ -21,9 +21,5 @@
       <app-gamble-table></app-gamble-table>
     </div>
   </div>
-  <div class="content" *ngIf="showDisplayName">
-    <input type="text" placeholder="Display Name" [(ngModel)]="displayName" />
-    <button (click)="confirmDisplayName()">Confirm</button>
-
-  </div>
+  
 </div>

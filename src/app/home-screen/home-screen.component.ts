@@ -27,8 +27,8 @@ import { UserService } from '../services/user.service';
     UserPointsDisplayComponent,
     GambleTableComponent,
     OverlayModule,
-    FormsModule,
-    NgIf,
+    
+    
   ],
   providers: [Overlay],
 })
@@ -79,21 +79,19 @@ export class HomeScreenComponent implements OnInit {
           if (result.role === 'Admin') {
             this.isAdmin = true;
           }
-          if (!this.isAdmin) {
-            this.showDisplayName = true;
-          }
+          // if (!this.isAdmin) {
+          //   this.showDisplayName = true;
+          // }
         });
-    } else {
-      //save the username in the database
+    } 
+    // else {
+    //   //save the username in the database
 
-      this.showDisplayName = true;
-    }
+    //   this.showDisplayName = true;
+    // }
   }
 
-  confirmDisplayName() {
-    this.username = this.displayName;
-    this.showDisplayName = false;
-  }
+  
 
   ngOnDestroy(): void {
     if (this.usernameSubscription) {
