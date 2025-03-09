@@ -13,6 +13,8 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { CreateRoomComponent } from '../create-room/create-room.component';
 import { UserLoginComponent } from '../user-login/user-login.ctrl';
+import { UserService } from '../services/user.service';
+import { UserRequest } from '../models/UserRequest';
 
 @Component({
   selector: 'login-screen',
@@ -28,6 +30,7 @@ export class LoginComponent {
   public loginForm!: FormGroup;
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -39,9 +42,19 @@ export class LoginComponent {
     // need to update this logic TODO
     this.authService.isLogin();
 
-    //this.authService.joinRoom(this.roomId, this.displayName);
-    this.router.navigate(['/home']);
+    this.userService
+      .saveUser(new UserRequest(this.displayName, this.roomId))
+      .subscribe({
+        next: (result) => {
+          console.log('result', result);
+          this.router.navigate([`/home/${this.roomId}/room`]);
+        },
+        error: (error) => {
+          console.log('error', error);
+        },
+      });
   }
+
   createRoom(): void {
     this.overlayRef = this.overlay.create({
       hasBackdrop: true,

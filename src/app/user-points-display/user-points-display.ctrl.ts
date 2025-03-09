@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { UtilityService } from '../shared/utility.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'user-points-display',
@@ -10,18 +11,25 @@ import { UtilityService } from '../shared/utility.service';
 })
 export class UserPointsDisplayComponent implements OnInit {
   @Input() username: string = '';
+  @Input() roomId: string = '';
   public isFlipped = false;
   public isDeleted = false;
   public users = [
-    { name: 'Shaheen', points: 5 },
-    { name: 'Christina', points: 8 },
-    { name: 'Sherlac', points: 3 },
-    { name: 'Kriti', points: 8 },
+    // { name: 'Shaheen', points: 5 },
+    // { name: 'Christina', points: 8 },
+    // { name: 'Sherlac', points: 3 },
+    // { name: 'Kriti', points: 8 },
   ];
 
-  constructor(private utilityService: UtilityService) {}
+  constructor(private utilityService: UtilityService, private userService: UserService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.userService.getAllUsers(this.roomId).subscribe((users) => {
+      this.users = users;
+      this.cdr.detectChanges();
+      console.log('users', users);
+
+    });
     console.log(this.username);
     this.utilityService.getStoryPoint().subscribe((storyPoint) => {
       this.users.find((user) => {

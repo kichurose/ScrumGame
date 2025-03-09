@@ -23,13 +23,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    UserPointsDisplayComponent,
-    GambleTableComponent,
-    OverlayModule,
-    
-    
-  ],
+  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule],
   providers: [Overlay],
 })
 export class HomeScreenComponent implements OnInit {
@@ -83,15 +77,15 @@ export class HomeScreenComponent implements OnInit {
           //   this.showDisplayName = true;
           // }
         });
-    } 
+    }
     // else {
     //   //save the username in the database
 
     //   this.showDisplayName = true;
     // }
-  }
 
-  
+    // if there is no token, then redirect to login page and ask for display name and join the room
+  }
 
   ngOnDestroy(): void {
     if (this.usernameSubscription) {
@@ -116,7 +110,7 @@ export class HomeScreenComponent implements OnInit {
     });
 
     const injector = Injector.create({
-      providers: [{ provide: 'roomId', useValue: this.roomId }]
+      providers: [{ provide: 'roomId', useValue: this.roomId }],
     });
     const portal = new ComponentPortal(ShareRoomComponent, null, injector);
     this.overlayRef.attach(portal);

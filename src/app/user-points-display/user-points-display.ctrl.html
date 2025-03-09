@@ -11,19 +11,19 @@
     <td>User</td>
     <td>Points</td>
     <tr *ngFor="let user of users">
-      <td>{{user.name}}</td>
+      <td>{{user.username}}</td>
       <td>
         <div class="card" [ngClass]="{'flipped': isFlipped}">
           <div class="flip-card-front">
-            @if(user.points > 0){
+            @if(user.storyPoints > 0){
             <img src="../../assets/images/scrum.png" alt="Scrum Poker" />
             } @else{ <span>-</span>}
           </div>
 
           <div class="flip-card-back">
-            @if(user.points > 0){
+            @if(user.storyPoints > 0){
 
-            <span>{{ user.points }}</span>
+            <span>{{ user.storyPoints }}</span>
             } @else{ <span>-</span>}
           </div>
         </div>
