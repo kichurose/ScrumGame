@@ -15,21 +15,22 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ShareRoomComponent } from '../share-room/share-room.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { UserService } from '../services/user.service';
+import { UserRequest } from '../models/UserRequest';
 
 @Component({
   selector: 'app-home-screen',
   templateUrl: './home-screen.component.html',
   styleUrls: ['./home-screen.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule],
+  imports: [UserPointsDisplayComponent, GambleTableComponent, OverlayModule, FormsModule],
   providers: [Overlay],
 })
 export class HomeScreenComponent implements OnInit {
   public username: string = '';
   public showDisplayName: boolean = false;
-  public isAdmin: boolean = false;
+  public validUser: boolean = false;
   public displayName: string = '';
   public roomId: string = '';
   private overlayRef: OverlayRef;
@@ -71,20 +72,37 @@ export class HomeScreenComponent implements OnInit {
         .subscribe((result) => {
           console.log('result', result);
           if (result.role === 'Admin') {
-            this.isAdmin = true;
+            this.validUser = true;
+            this.cdr.detectChanges();
           }
           // if (!this.isAdmin) {
           //   this.showDisplayName = true;
           // }
         });
+    } else {
+      //save the username in the database
+      //this.showDisplayName = true;
     }
-    // else {
-    //   //save the username in the database
-
-    //   this.showDisplayName = true;
-    // }
 
     // if there is no token, then redirect to login page and ask for display name and join the room
+  }
+  joinRoom() {
+    // need to update this logic TODO
+    this.authService.isLogin();
+
+    this.userService
+      .saveUser(new UserRequest(this.displayName, this.roomId))
+      .subscribe({
+        next: (result) => {
+          console.log('result', result);
+          this.validUser = true;
+          this.cdr.detectChanges();
+         
+        },
+        error: (error) => {
+          console.log('error', error);
+        },
+      });
   }
 
   ngOnDestroy(): void {
