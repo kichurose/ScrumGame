@@ -37,3 +37,23 @@ APIs needed
 4. User Logout
 5. Signal R
 
+
+
+
+
+
+cd /path/to/your/project
+git init
+git remote add origin https://github.com/kichurose/ScrumGameServer.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+
+
+
+git rm -r --cached .vs/
+git commit -m "Removed .vs/ folder from tracking"
+git push origin master  # or your branch name
+
+
+
