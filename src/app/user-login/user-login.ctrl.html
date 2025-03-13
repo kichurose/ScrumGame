@@ -19,4 +19,10 @@
       />
     </div>
   </form>
-  <button (click)="onLogIn()">LOGIN</button>
+  @if(isSignUp){
+    <button (click)="onSignUp()">SIGNUP</button>
+  }
+  @else {
+
+    <button (click)="onLogIn()">LOGIN</button>
+  }

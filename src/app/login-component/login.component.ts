@@ -15,6 +15,7 @@ import { CreateRoomComponent } from '../create-room/create-room.component';
 import { UserLoginComponent } from '../user-login/user-login.ctrl';
 import { UserService } from '../services/user.service';
 import { UserRequest } from '../models/UserRequest';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'login-screen',
@@ -30,6 +31,7 @@ export class LoginComponent {
   public loginForm!: FormGroup;
   constructor(
     private authService: AuthService,
+    private authenticationService: AuthenticationService,
     private userService: UserService,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -100,4 +102,30 @@ export class LoginComponent {
 
     this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
   }
+
+  userSignUp(): void {
+    this.overlayRef = this.overlay.create({
+      hasBackdrop: true,
+      //backdropClass: 'cdk-overlay-backdrop',
+      panelClass: 'custom-overlay-panel',
+      positionStrategy: this.overlay
+        .position()
+        .global()
+        .centerHorizontally()
+        .centerVertically(),
+    });
+
+    const injector = Injector.create({
+      providers: [{ provide: OverlayRef, useValue: this.overlayRef },
+        { provide: 'IS_SIGNUP', useValue: true }
+      ],
+      parent: this.injector,
+    });
+
+    const portal = new ComponentPortal(UserLoginComponent, null, injector);
+    this.overlayRef.attach(portal);
+
+    this.overlayRef.backdropClick().subscribe(() => this.overlayRef.detach());
+  }
+
 }
